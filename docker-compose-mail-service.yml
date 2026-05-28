@@ -13,10 +13,6 @@ services:
     networks:
       - proxy-net
     restart: unless-stopped
-
-# Joins the shared reverse-proxy network created by fynn-koch-landingpage.
-# The service exposes no host ports; it is reachable only inside proxy-net,
-# where the central nginx proxies public traffic to it.
 networks:
   proxy-net:
     name: proxy-net

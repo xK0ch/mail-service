@@ -9,17 +9,16 @@ OpenAPI / Swagger UI is available at `/swagger-ui.html`, the spec at `/v3/api-do
 ### `POST /api/contact` (public)
 
 Sends a contact-form submission to the server-configured recipient
-(`mail.contact-recipient`, default `mail@fynn-koch.de`). The recipient is fixed
-server-side, so this endpoint cannot be misused as an open relay. The sender's address
-is set as `Reply-To`.
+(`mail.contact-recipient`). The recipient is fixed server-side, so this endpoint cannot
+be misused as an open relay. The sender's address is set as `Reply-To`.
 
 ```json
 {
   "name": "Maria Muster",
-  "email": "maria@tanzschule-muster.de",
-  "organisation": "Tanzschule Muster",
+  "email": "maria@example.com",
+  "organisation": "Example GmbH",
   "phone": "0123 456789",
-  "message": "Wir hätten gern ein Mockup."
+  "message": "Eine Nachricht."
 }
 ```
 
@@ -69,23 +68,15 @@ Swagger UI: http://localhost:8080/swagger-ui.html
 
 ## Deployment
 
-The service runs as a container on the shared `proxy-net` Docker network and exposes
-no host ports. The central reverse proxy in `fynn-koch-landingpage` terminates TLS and
-routes public traffic to it.
+The service is packaged as a Docker image and exposes no host ports; it listens on
+port `8080` inside the container and is meant to sit behind a reverse proxy.
 
 ```bash
 docker compose -f docker-compose-mail-service.yml up --build -d
 ```
 
-### Wiring it into the reverse proxy
-
-`mail-service` does not run its own nginx. To make the API reachable from the browser,
-add a `location /api/` block to the appropriate server block in
-`fynn-koch-landingpage/nginx.conf`. A ready-to-paste example is in [`nginx.conf`](./nginx.conf).
-Exposing the API on the same origin as the landing page avoids CORS entirely.
-
 ### Jenkins
 
-`Jenkinsfile` deploys via docker compose. It expects these Jenkins credentials:
-`MAIL_SERVICE_MAIL_HOST`, `MAIL_SERVICE_MAIL_PORT`, `MAIL_SERVICE_MAIL_USERNAME`,
-`MAIL_SERVICE_MAIL_PASSWORD`, `MAIL_SERVICE_CONTACT_RECIPIENT`, `MAIL_SERVICE_API_KEY`.
+`Jenkinsfile` builds and deploys via docker compose. It expects these Jenkins
+credentials: `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`,
+`MAIL_SERVICE_CONTACT_RECIPIENT`, `MAIL_SERVICE_API_KEY`.
