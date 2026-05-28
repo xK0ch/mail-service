@@ -7,7 +7,6 @@ services:
       MAIL_PORT: ${MAIL_PORT:-465}
       MAIL_USERNAME: ${MAIL_USERNAME:-noreply@example.com}
       MAIL_PASSWORD: ${MAIL_PASSWORD:-changeme}
-      CONTACT_RECIPIENT: ${CONTACT_RECIPIENT:-mail@fynn-koch.de}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://tanzschule.fynn-koch.de}
     networks:
       - proxy-net

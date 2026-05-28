@@ -12,7 +12,6 @@ pipeline {
     MAIL_PORT = credentials('MAIL_PORT')
     MAIL_USERNAME = credentials('MAIL_USERNAME')
     MAIL_PASSWORD = credentials('MAIL_PASSWORD')
-    CONTACT_RECIPIENT = credentials('MAIL_SERVICE_CONTACT_RECIPIENT')
   }
 
   stages {
