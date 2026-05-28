@@ -1,0 +1,23 @@
+services:
+  mail-service:
+    build: .
+    container_name: mail-service
+    environment:
+      MAIL_HOST: ${MAIL_HOST:-smtp.example.com}
+      MAIL_PORT: ${MAIL_PORT:-465}
+      MAIL_USERNAME: ${MAIL_USERNAME:-noreply@example.com}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-changeme}
+      CONTACT_RECIPIENT: ${CONTACT_RECIPIENT:-mail@fynn-koch.de}
+      MAIL_API_KEY: ${MAIL_API_KEY:-}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://tanzschule.fynn-koch.de}
+    networks:
+      - proxy-net
+    restart: unless-stopped
+
+# Joins the shared reverse-proxy network created by fynn-koch-landingpage.
+# The service exposes no host ports; it is reachable only inside proxy-net,
+# where the central nginx proxies public traffic to it.
+networks:
+  proxy-net:
+    name: proxy-net
+    external: true

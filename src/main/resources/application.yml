@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: mail-service
+
+  mail:
+    host: ${MAIL_HOST:smtp.example.com}
+    port: ${MAIL_PORT:465}
+    username: ${MAIL_USERNAME:noreply@example.com}
+    password: ${MAIL_PASSWORD:changeme}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+
+mail:
+  # Fixed recipient for the public /api/contact endpoint
+  contact-recipient: ${CONTACT_RECIPIENT:mail@fynn-koch.de}
+  # Shared secret for the generic /api/mail endpoint. Empty disables that endpoint.
+  api-key: ${MAIL_API_KEY:}
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
+
+springdoc:
+  default-produces-media-type: application/json
+  default-consumes-media-type: application/json
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: method
+  api-docs:
+    path: /v3/api-docs
