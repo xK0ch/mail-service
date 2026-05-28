@@ -46,20 +46,4 @@ public class MailService {
         mail.setText(body.toString());
         mailSender.send(mail);
     }
-
-    /**
-     * Sends a generic email to an arbitrary recipient.
-     * Guarded by an API key at the controller layer because it can target any address.
-     */
-    public void sendMail(MailRequest request) {
-        SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setFrom(fromAddress);
-        mail.setTo(request.to());
-        mail.setSubject(request.subject());
-        mail.setText(request.body());
-        if (request.replyTo() != null && !request.replyTo().isBlank()) {
-            mail.setReplyTo(request.replyTo());
-        }
-        mailSender.send(mail);
-    }
 }

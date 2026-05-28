@@ -14,16 +14,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<Map<String, Object>> handleUnauthorized(UnauthorizedException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
-                "timestamp", LocalDateTime.now().toString(),
-                "status", 401,
-                "error", "Unauthorized",
-                "message", ex.getMessage()
-        ));
-    }
-
     @ExceptionHandler(MailException.class)
     public ResponseEntity<Map<String, Object>> handleMailError(MailException ex) {
         log.error("Failed to send email: {}", ex.getMessage(), ex);

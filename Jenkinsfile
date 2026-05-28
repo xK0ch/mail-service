@@ -13,7 +13,6 @@ pipeline {
     MAIL_USERNAME = credentials('MAIL_USERNAME')
     MAIL_PASSWORD = credentials('MAIL_PASSWORD')
     CONTACT_RECIPIENT = credentials('MAIL_SERVICE_CONTACT_RECIPIENT')
-    MAIL_API_KEY = credentials('MAIL_SERVICE_API_KEY')
   }
 
   stages {

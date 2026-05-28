@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -14,7 +13,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MailController.class)
-@TestPropertySource(properties = "mail.api-key=test-secret")
 class MailControllerTest {
 
     @Autowired
@@ -43,28 +41,5 @@ class MailControllerTest {
                                 {"name":"Max","email":"not-an-email","message":"Hallo"}
                                 """))
                 .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void genericMailRequiresApiKey() throws Exception {
-        mockMvc.perform(post("/api/mail")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {"to":"a@example.com","subject":"Hi","body":"Text"}
-                                """))
-                .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    void genericMailSucceedsWithValidApiKey() throws Exception {
-        mockMvc.perform(post("/api/mail")
-                        .header("X-Api-Key", "test-secret")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {"to":"a@example.com","subject":"Hi","body":"Text"}
-                                """))
-                .andExpect(status().isOk());
-
-        verify(mailService).sendMail(any(MailRequest.class));
     }
 }

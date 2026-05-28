@@ -24,24 +24,6 @@ be misused as an open relay. The sender's address is set as `Reply-To`.
 
 `organisation` and `phone` are optional. Returns `200 OK` on success.
 
-### `POST /api/mail` (API key required)
-
-Sends a generic email to an arbitrary recipient. Requires the `X-Api-Key` header to
-match `mail.api-key`. If no API key is configured the endpoint is disabled and always
-returns `401`.
-
-```
-X-Api-Key: <shared-secret>
-```
-```json
-{
-  "to": "someone@example.com",
-  "subject": "Betreff",
-  "body": "Nachrichtentext",
-  "replyTo": "optional@example.com"
-}
-```
-
 ## Configuration
 
 All settings are environment variables (see `src/main/resources/application.yml`):
@@ -53,7 +35,6 @@ All settings are environment variables (see `src/main/resources/application.yml`
 | `MAIL_USERNAME` | SMTP user / `From` address | `noreply@example.com` |
 | `MAIL_PASSWORD` | SMTP password | `changeme` |
 | `CONTACT_RECIPIENT` | Fixed recipient for `/api/contact` | `mail@fynn-koch.de` |
-| `MAIL_API_KEY` | Shared secret for `/api/mail`; empty disables it | _(empty)_ |
 | `CORS_ALLOWED_ORIGINS` | Comma-separated allowed origins | `http://localhost:4200` |
 
 ## Local development
@@ -79,4 +60,4 @@ docker compose -f docker-compose-mail-service.yml up --build -d
 
 `Jenkinsfile` builds and deploys via docker compose. It expects these Jenkins
 credentials: `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`,
-`MAIL_SERVICE_CONTACT_RECIPIENT`, `MAIL_SERVICE_API_KEY`.
+`MAIL_SERVICE_CONTACT_RECIPIENT`.
