@@ -41,4 +41,18 @@ public class MailService {
         mail.setText(body.toString());
         mailSender.send(mail);
     }
+
+    /**
+     * Sends a transactional email to an arbitrary recipient. Intended for internal,
+     * server-to-server use only; the {@code /api/send} endpoint is protected by an API key
+     * so this cannot be abused as an open relay.
+     */
+    public void sendMail(SendMailRequest request) {
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom(fromAddress);
+        mail.setTo(request.to());
+        mail.setSubject(request.subject());
+        mail.setText(request.body());
+        mailSender.send(mail);
+    }
 }

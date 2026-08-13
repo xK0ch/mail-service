@@ -14,7 +14,8 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Mail Service API")
-                        .description("Sends contact-form messages to a fixed, server-configured recipient.")
+                        .description("Sends contact-form messages to a fixed recipient (public) and "
+                                + "transactional emails to arbitrary recipients (internal, API-key protected).")
                         .version("0.0.1-SNAPSHOT")
                         .contact(new Contact().name("Fynn Koch").email("mail@fynn-koch.de")));
     }

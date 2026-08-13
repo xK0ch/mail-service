@@ -12,6 +12,7 @@ pipeline {
     MAIL_PORT = credentials('MAIL_PORT')
     MAIL_USERNAME = credentials('MAIL_USERNAME')
     MAIL_PASSWORD = credentials('MAIL_PASSWORD')
+    MAIL_API_KEY = credentials('MAIL_API_KEY')
   }
 
   stages {

@@ -29,4 +29,14 @@ public class MailController {
         mailService.sendContactMessage(request);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/send")
+    @Operation(operationId = "sendMail", summary = "Send transactional email",
+            description = "Sends an email to an arbitrary recipient. Internal use only: requires a valid "
+                    + "'X-Api-Key' header. Not routed publicly.")
+    @SecurityRequirements
+    public ResponseEntity<Void> sendMail(@Valid @RequestBody SendMailRequest request) {
+        mailService.sendMail(request);
+        return ResponseEntity.ok().build();
+    }
 }
