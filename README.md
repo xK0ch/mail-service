@@ -34,7 +34,6 @@ All settings are environment variables (see `src/main/resources/application.yml`
 | `MAIL_PORT` | SMTP port | `465` |
 | `MAIL_USERNAME` | SMTP user / `From` address | `noreply@example.com` |
 | `MAIL_PASSWORD` | SMTP password | `changeme` |
-| `CORS_ALLOWED_ORIGINS` | Comma-separated allowed origins | `http://localhost:4200` |
 
 ## Local development
 
